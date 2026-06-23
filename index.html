@@ -4,10 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
     <script src="script.js"></script>
 </head>
 <body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class ="logo-container">
+                <h1 class="logo">CineLA</h1>
+                
+            </div>
+            <div class ="search-container">
+                <input type="text" class="search-box" placeholder="search for movies">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            </div>
+            <div class ="toggle-container">
+                <i class="fa-solid fa-moon toggle-icon"></i>
+                <i class="fa-regular fa-moon toggle-icon"></i>
+                <div class="toggle-ball"></div>
+            </div>
+
+        </div>
+    </div>
+    <main>
+        <section class="featured-section">
+            <div class="featured-movie">
+                <img src="https://image.tmdb.org/t/p/original/ptTwQES14pr5c3aZvJg56YlYgb1.jpg" alt="Featured movie" class="featured-img">
+                <h1 class="featured-title">Dhurandhar:The Revenge</h1>
+                <button class="featured-button">EXPLORE</button>
+                <i class="fas fa-play"></i>
+                <P class="featured-description">
+                    The film follows Jaskirat Singh Rangi (Ranveer Singh), an undercover agent who buries his identity under the alias "Hamza Ali Mazari". Rising through the criminal hierarchies of Lyari, Karachi, he is forced to balance a deceptive double life—including a fake marriage and family on enemy soil—while hunting the architects of past atrocities against India.
+                </P>
+            </div>
+        </section>
+        <section class="trending">
+            <h1 class="trending-movies">Trending Movies</h1>
+            <div class="movie-grid">
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://image.tmdb.org/t/p/original/bRwnj8WEKBCvmfeUNOukJPwB43K.jpg" alt="Obsession" width="300px">
+                    </div>
+                    <div class="movie-box">
+                        <div class="movie-rating">8.3⭐</div>
+                        <div class="movie-genre">Horror</div>
+                        <div class="movie-year">2026</div>
+
+                    </div>
+                    
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://image.tmdb.org/t/p/original/yihdXomYb5kTeSivtFndMy5iDmf.jpg" alt="Project Hail Mary" width="300px">
+                    </div>
+                    <div class="movie-box">
+                        <div class="movie-rating">8.7⭐</div>
+                        <div class="movie-genre">Sci fi</div>
+                        <div class="movie-year">2026</div>
+
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://image.tmdb.org/t/p/original/lyhTXw364iFR3hTKrsUNmPFL1rV.jpg" alt="Drishyam 3" width="300px">
+                    </div>
+                    <div class="movie-box">
+                        <div class="movie-rating">8.5⭐</div>
+                        <div class="movie-genre">Crime</div>
+                        <div class="movie-year">2026</div>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://image.tmdb.org/t/p/original/6i5PhBWoDGWmVRmvlUk2L4N23jz.jpg" alt="Main Vaapas Aaunga" width="300px">
+                    </div>
+                    <div class="movie-box">
+                        <div class="movie-rating">8.1⭐</div>
+                        <div class="movie-genre">Romance</div>
+                        <div class="movie-year">2026</div>
+
+                    </div>
+                </div>
+                               
+            
+            </div>
+        </section>
+        <section class="action">
+            <h1 class="action-movies">Action Movies</h1>
+            <div class="a-movie-grid">
+                <div class="a-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" width="200px">
+                </div>
+                <div class="a-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/m2zXTuNPkywdYLyWlVyJZW2QOJH.jpg" width="200px">
+                </div>
+                <div class="a-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/5dw2pVTGAz9sRu5r66eeCQpGZce.jpg" width="200px">
+                </div>
+                <div class="a-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg" width="200px">
+                </div>
+                <div class="a-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/8tZYtuWezp8JbcsvHYO0O46tFbo.jpg" width="200px">
+                </div>
+            </div>
+        </section>
+
+        <section class="comedy">
+            <h1 class="comedy-movies">Comedy Movies</h1>
+            <div class="c-movie-grid">
+                <div class="c-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/n0W7kajF4GFMRk2c0wWwMQqTaDM.jpg" width="200px">
+                </div>
+                <div class="c-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/A0uS9rHR56FeBtpjVki16M5xxSW.jpg" width="200px">
+                </div>
+                <div class="c-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/OjJ2eZFMr0InHxjYCQXwxDoo4v.jpg" width="200px">
+                </div>
+                <div class="c-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/ctv957BIB5lCjY4Xg8rVNw47Um3.jpg" width="200px">
+                </div>
+                <div class="c-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/we7wOLVFgxhzLzUt0qNe50xdIQZ.jpg" width="200px">
+                </div>
+            </div>
+        </section>
+        <section class="horror">
+            <h1 class="horror-movies">Horror Movies</h1>
+            <div class="h-movie-grid">
+                <div class="h-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/byWgphT74ClOVa8EOGzYDkl8DVL.jpg" width="200px">
+                </div>
+                <div class="h-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/sa26OBVEYzYRButAGkMlwr3rTkB.jpg" width="200px">
+                </div>
+                <div class="h-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/i0qrpO0pZ09kHnRb10tGPVYuTzy.jpg" width="200px">
+                </div>
+                <div class="h-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/yLsuU2P2SpDYFwtZQ7dtfVAf6TE.jpg" width="200px">
+                </div>
+                <div class="h-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/5x0CeVHJI8tcDx8tUUwYHQSNILq.jpg" width="200px">
+                </div>
+            </div>
+        </section>
+        <section class="sci fi">
+            <h1 class="scifi-movies">Sci fi Movies</h1>
+            <div class="s-movie-grid">
+                <div class="s-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/eYJsurMCdA4W8UIknII20a4pwiq.jpg" width="200px">
+                </div>
+                <div class="s-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/aSZiRMu05JqjvjUac8W3Y5TbtgG.jpg" width="200px">
+                </div>
+                <div class="s-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/yQvGrMoipbRoddT0ZR8tPoR7NfX.jpg" width="200px">
+                </div>
+                <div class="s-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg" width="200px">
+                </div>
+                <div class="s-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg" width="200px">
+                </div>
+            </div>
+        </section>
+        <section class="drama">
+            <h1 class="drama-movies">Drama Movies</h1>
+            <div class="d-movie-grid">
+                <div class="d-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/ybrrlM3uwDBegwH646n2NPL7XU8.jpg" width="200px">
+                </div>
+                <div class="d-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/a5s6liMFTQd7EHvCSSjavu4piPr.jpg" width="200px">
+                </div>
+                <div class="d-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/zhG3vKWyDRaZYoaww1UVAi29T9h.jpg" width="200px">
+                </div>
+                <div class="d-movie-poster" >
+                    <img src="https://image.tmdb.org/t/p/original/20f2GThu22hp5MgCA4dg3bZ3gTS.jpg" width="200px">
+                </div>
+                <div class="d-movie-poster">
+                    <img src="https://image.tmdb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg" width="200px">
+                </div>
+            </div>
+        </section>
+        
+    </main>
     
 </body>
 </html>
