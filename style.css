@@ -34,10 +34,13 @@
     width: 80%;
     height: 30px;
     font-size: medium;
+    border-radius: 20px;
+    
     
 }
 .search-icon{
     color: white;
+    
     
 
 }
@@ -66,5 +69,89 @@
     position: absolute;
     right: 1px;   
     border-radius: 50%;
+    cursor: pointer;
+}
 
+
+.featured-img{
+    width: 100%;
+    
+    
+}
+.featured-button{
+    border-radius: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   
+}
+.featured-description{
+    font-weight: bold;
+}
+
+.movie-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1.5rem;
+    font-weight: bold;
+    
+    
+}
+
+.movie-card{
+    
+    background-color: gray;    
+    border-radius: 20px;
+    
+}
+.movie-rating{
+    text-align: left; 
+    padding: 10px; 
+}
+.movie-genre{
+    text-align: center; 
+    flex:5px;
+}
+.movie-year{
+    text-align: right;
+    padding: 10px;
+}
+.movie-box{
+    display: flex;
+    align-items: center;
+
+}
+.a-movie-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1rem;
+    
+}
+.c-movie-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1rem;
+    
+}
+.h-movie-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1rem;
+    
+}
+.s-movie-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1rem;
+    
+}
+.d-movie-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1rem;
+    
 }
