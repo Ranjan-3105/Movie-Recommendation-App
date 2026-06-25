@@ -100,8 +100,100 @@
       <span class="dot"></span>
     
     </div>
-  </div>  
- 
+  </div>
+  <section id="mood-section">
+    <div style="max-width:1200px;margin:0 auto;">
+      
+      <h2 class="section-title">What's Your <span>Mood?</span></h2>
+      <p>Get curated recommendations based on how you feel right now.</p>
+      <div class="mood-grid">
+        <div class="mood-card" oncllick="setMood('happy','😂')" data-mood="happy">
+          <div class="mood-icon">😂</div>
+          <div class="mood-label">happy</div>
+          <div class="mood-sub">Feel-good films</div>
+        </div>
+        <div class="mood-card" onclick="setMood('sad','😢')" data-mood="sad">
+          <div class="mood-icon">😢</div>
+          <div class="mood-label">sad</div>
+          <div class="mood-sub">Emotional dramas</div>
+        </div>
+        <div class="mood-card" onclick="setMood('excited','🤩')" data-mood="excited">
+          <div class="mood-icon">🤩</div>
+          <div class="mood-label">excited</div>
+          <div class="mood-sub">High-energy action</div>
+        </div>
+        <div class="mood-card" onclick="setMood('thriller','😱')" data-mood="thriller">
+          <div class="mood-icon">😱</div>
+          <div class="mood-label">thriller</div>
+          <div class="mood-sub">Edge-of-seat suspense</div>
+        </div>
+        <div class="mood-card" onclick="setMood('romantic','❤️')" data-mood="romantic">
+          <div class="mood-icon">❤️</div>
+          <div class="mood-label">romantic</div>
+          <div class="mood-sub">Love stories</div>
+        </div>
+        <div class="mood-card" onclick="setMood('thoughtful','🤔')" data-mood="thoughtful">
+          <div class="mood-icon">🤔</div>
+          <div class="mood-label">thoughtful</div>
+          <div class="mood-sub">Mind-bending films</div>
+        </div>
+      </div>
+  <div id="mood-results" style="margin-top:2rem;display:none;">
+  <div class="because-tag" id="mood-label-tag"></div>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn left" onclick="scrollMood(-1)">❮</button>
+    <div class="carousel-track" id="mood-row"></div>
+    <button class="carousel-btn right" onclick="scrollMood(1)">❯</button>
+  </div>
+</div>
+    </div>
+  </section>
+  <footer id="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Cine<span style="color:#E8EBF0">Verse</span></div>
+      <p>Your ultimate destination for movie discovery. Powered by passion for cinema and AI-driven recommendations.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul class="footer-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#movies-section">Movies</a></li>
+        <li><a href="#trending-section">Trending</a></li>
+        <li><a href="#mood-section">By Mood</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <p>Get weekly picks delivered to your inbox.</p>
+      <div class="msg">
+        <input type="email" placeholder="your@email.com">
+        <button class="btn-filter"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 CineVerse. All rights reserved.</p>
+    <p>Made with ❤️ for movie lovers</p>
+  </div>
+</footer>
+
+
 
 
  <script src="script.js"></script>   
