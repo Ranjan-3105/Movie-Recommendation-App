@@ -1,11 +1,3 @@
-
-
-document.addEventListener("mousemove",function(dets){
-    document.querySelector("#cursor").style.left = dets.x + "px";
-    document.querySelector("#cursor").style.top = dets.y + "px";
-    document.querySelector("#cursor-blur").style.left = dets.x-150 + "px";
-    document.querySelector("#cursor-blur").style.top = dets.y-150 + "px";
-});
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
 
@@ -28,7 +20,7 @@ function nextSlide() {
 setInterval(nextSlide, 3000); // change every 3 sec
 
 
-const API_KEY = "35f665b4d65439539024beac53f297d8";
+const API_KEY = "884c521ea68a850c28884fc00746252c";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -60,8 +52,10 @@ async function setMood(mood, emoji) {
   }
 }
 
-function displayMoodMovies(movies, mood, emoji) {
+let currentMovies = [];
 
+function displayMoodMovies(movies, mood, emoji) {
+  currentMovies = movies;
   const resultSection = document.getElementById("mood-results");
   const moodRow = document.getElementById("mood-row");
   const label = document.getElementById("mood-label-tag");
@@ -81,7 +75,7 @@ function displayMoodMovies(movies, mood, emoji) {
         <img src="${poster}" alt="${movie.title}">
         <h3>${movie.title}</h3>
         <p>⭐ ${movie.vote_average.toFixed(1)}</p>
-        <button onclick="addToWatchlist(${movie.id})">
+        <button class = "watchlist-btn" onclick="addToWatchlist(${movie.id})">
         Add to Watchlist
       </button>
       </div>
@@ -97,3 +91,40 @@ function scrollMood(direction) {
   track.scrollBy({ left: direction * 500, behavior: "smooth" });
 }
 
+
+let watchlist = JSON.parse(
+  localStorage.getItem("watchlist")
+) || [];
+
+function addToWatchlist(movieId) {
+
+  const cards = document.querySelectorAll(".movie-card");
+
+  let selectedMovie = null;
+
+  currentMovies.forEach(movie => {
+    if(movie.id === movieId){
+      selectedMovie = movie;
+    }
+  });
+
+  if(!selectedMovie) return;
+
+  const exists = watchlist.some(
+    movie => movie.id === movieId
+  );
+
+  if(exists){
+    alert("Already in watchlist");
+    return;
+  }
+
+  watchlist.push(selectedMovie);
+
+  localStorage.setItem(
+    "watchlist",
+    JSON.stringify(watchlist)
+  );
+
+  alert("Added to Watchlist");
+}
