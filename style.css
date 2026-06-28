@@ -42,6 +42,7 @@ font-family:'Inter',sans-serif; }
 
 }
 #nav h4{
+  cursor:pointer;
   color:silver;
     font-size: 15px;
     font-weight: 500;
@@ -89,25 +90,6 @@ font-family:'Inter',sans-serif; }
   color:whitesmoke;
 }
 
-#cursor{
-    height: 1px;
-    width: 1px;
-    border-radius: 50%;
-    background-color:red;
-    position: fixed;
-    z-index: 99;
-    pointer-events: none;
-}
-#cursor-blur{
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    background-color:red;
-    position: fixed;
-    filter: blur(120px);
-    z-index: 9;
-    pointer-events: none;
-}
 #page1{
   width: 100%;
   height: 100px;
@@ -331,7 +313,7 @@ font-family:'Inter',sans-serif; }
   font-family: 'Bebas Neue', sans-serif; 
   font-size: 1.8rem; 
   letter-spacing: 3px; 
-  color: #F5A623; 
+  color: white; 
   margin-bottom: 0.8rem; 
 }
 .footer-brand p { 

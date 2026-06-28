@@ -34,7 +34,7 @@ const moodGenres = {
 };
 console.log("test")
 async function setMood(mood, emoji) {
-  console.log("set mood")
+  
   const genreId = moodGenres[mood];
 
   const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
@@ -44,7 +44,7 @@ async function setMood(mood, emoji) {
      if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
-    console.log(data)
+    
 
     displayMoodMovies(data.results, mood, emoji);
   } catch (error) {
