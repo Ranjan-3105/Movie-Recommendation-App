@@ -34,7 +34,7 @@ const moodGenres = {
 };
 console.log("test")
 async function setMood(mood, emoji) {
-  
+  console.log("set mood")
   const genreId = moodGenres[mood];
 
   const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
@@ -44,7 +44,7 @@ async function setMood(mood, emoji) {
      if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
-    
+    console.log(data)
 
     displayMoodMovies(data.results, mood, emoji);
   } catch (error) {
@@ -92,13 +92,8 @@ function scrollMood(direction) {
 }
 
 
-let watchlist = JSON.parse(
-  localStorage.getItem("watchlist")
-) || [];
-
 function addToWatchlist(movieId) {
-
-  const cards = document.querySelectorAll(".movie-card");
+  let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
 
   let selectedMovie = null;
 
@@ -119,7 +114,16 @@ function addToWatchlist(movieId) {
     return;
   }
 
-  watchlist.push(selectedMovie);
+  const watchlistItem = {
+    id: selectedMovie.id,
+    title: selectedMovie.title,
+    poster: selectedMovie.poster_path
+      ? IMAGE_URL + selectedMovie.poster_path
+      : "https://via.placeholder.com/440x660?text=No+Image",
+    vote_average: selectedMovie.vote_average
+  };
+
+  watchlist.push(watchlistItem);
 
   localStorage.setItem(
     "watchlist",
@@ -128,3 +132,4 @@ function addToWatchlist(movieId) {
 
   alert("Added to Watchlist");
 }
+
