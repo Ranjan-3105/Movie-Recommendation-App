@@ -23,9 +23,10 @@ html,body{
   
 }
 .nav-logo span { 
-  color:#F5A623;
-  font-weight: 900;
-font-family:'Inter',sans-serif; }
+color:#F5A623;
+font-weight: 900;
+font-family:'Inter',sans-serif; 
+}
 
 #nav{
   top:0;

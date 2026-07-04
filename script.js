@@ -17,7 +17,7 @@ function nextSlide() {
   showSlide(index);
 }
 
-setInterval(nextSlide, 3000); // change every 3 sec
+setInterval(nextSlide, 3000); 
 
 
 const API_KEY = "884c521ea68a850c28884fc00746252c";
@@ -55,7 +55,7 @@ function displaySearchMovies(movies, query) {
   searchRow.innerHTML = "";
 
   label.innerHTML = `🔍 Results for "${query}"`;
-  // Handle empty results
+  
   if(!movies || movies.length === 0) {
     searchRow.innerHTML = `<p style="color:#aaa; width:100%; text-align:center;">No results found for "${query}". Please try a different search.</p>`;
     resultSection.scrollIntoView({ behavior: "smooth" });
@@ -87,7 +87,7 @@ function scrollSearch(direction) {
     container.scrollBy({ left: direction * 300, behavior: "smooth" });
   }
 }
-// 3. Event listeners for the search box
+
 document.getElementById("search-btn").addEventListener("click", () => {
   const query = document.getElementById("search-input").value;
   fetchSearchMovies(query);
