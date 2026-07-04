@@ -32,6 +32,8 @@ const moodGenres = {
   romantic: 10749,
   thoughtful: 878
 };
+
+
 async function fetchSearchMovies(query) {
   if (!query.trim()) return;
 
@@ -99,6 +101,79 @@ document.getElementById("search-input").addEventListener("keypress", (e) => {
     fetchSearchMovies(query);
   }
 });
+
+
+const genres = {
+  horror: 27,
+  scifi: 878,
+  thriller: 53,
+  romance: 10749,
+  comedy: 35
+};
+
+async function fetchGenreMovies(genreId, containerId) {
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
+    );
+
+    const data = await res.json();
+    displayMovies(data.results, containerId);
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function displayMovies(movies, containerId) {
+  const container = document.getElementById(containerId);
+  currentMovies=movies;
+  const thisGenresMovies = [...movies];
+  
+  movies.forEach(movie => {
+    const card = document.createElement("div");
+    
+
+    card.innerHTML = `<div class="movie-card">
+      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+      <h4>${movie.title}</h4>
+      <p>⭐ ${movie.vote_average.toFixed(1)}</p>
+      <button class = "watchlist-btn">
+        Add to Watchlist
+      </button>
+     </div> 
+    `;
+    card.querySelector('.watchlist-btn').addEventListener('click', () => {
+    
+      currentMovies = thisGenresMovies;
+      addToWatchlist(movie.id);
+    })
+
+    container.appendChild(card);
+  });
+}
+
+function scrollRow(containerId, amount) {
+  const row = document.getElementById(containerId);
+  
+  
+  if (!row) return;
+
+  row.scrollBy({
+    left: amount,
+    behavior: "smooth"
+  });
+}
+
+fetchGenreMovies(genres.horror, "horror");
+fetchGenreMovies(genres.scifi, "scifi");
+fetchGenreMovies(genres.thriller, "thriller");
+fetchGenreMovies(genres.romance, "romance");
+fetchGenreMovies(genres.comedy, "comedy");
+
+  
+
+
 async function setMood(mood, emoji) {
   console.log("set mood")
   const genreId = moodGenres[mood];
