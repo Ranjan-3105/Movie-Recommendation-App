@@ -51,35 +51,44 @@ font-family:'Inter',sans-serif; }
     text-decoration: none;
 }
 
-
-.search-box{
-  display: flex;
-  gap: 10px;
-  margin: 60px;
-  
-}
-
-.search-box input{
+#search-input{
   width: 400px;
   padding: 12px;
   border: 1px solid gray;
   border-radius: 25px;
-  
-  color:white;
+  font-family:'Inter',sans-serif;
+  color:black;
 }
 
-.search-box button{
+#search-btn{
   padding: 12px 20px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
+}
+.search-flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;  
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.search-flex-row .movie-card {
+  flex: 0 0 auto;            
+  width: 180px;              
+}
+#search-label-tag {
+  color: white;
+  font-size: 1.5rem;
 }
 #log-in{
   background-color: #F5A623;
   border-radius:30px;
   padding:10px 20px;
   color:whitesmoke;
-  margin-left:80px;
+  margin-left:180px;
   font-size: 20px;
   font-weight: 500;
   align-items: center;

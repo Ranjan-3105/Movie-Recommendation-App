@@ -32,7 +32,73 @@ const moodGenres = {
   romantic: 10749,
   thoughtful: 878
 };
-console.log("test")
+async function fetchSearchMovies(query) {
+  if (!query.trim()) return;
+
+  const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=1&include_adult=false`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displaySearchMovies(data.results, query);
+  } catch (err) {
+    console.error("Search error:", err);
+  }
+}
+function displaySearchMovies(movies, query) {
+  currentMovies = movies;
+  const resultSection = document.getElementById("search-results");
+  const searchRow = document.getElementById("search-row");
+  const label = document.getElementById("search-label-tag");
+
+  resultSection.style.display = "block";
+  searchRow.innerHTML = "";
+
+  label.innerHTML = `🔍 Results for "${query}"`;
+  // Handle empty results
+  if(!movies || movies.length === 0) {
+    searchRow.innerHTML = `<p style="color:#aaa; width:100%; text-align:center;">No results found for "${query}". Please try a different search.</p>`;
+    resultSection.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+
+  currentMovies.forEach(movie => {
+    const poster = movie.poster_path
+      ? IMAGE_URL + movie.poster_path
+      : "https://via.placeholder.com/440x660?text=No+Image";
+
+    searchRow.innerHTML += `
+      <div class="movie-card">
+        <img src="${poster}" alt="${movie.title}">
+        <h3>${movie.title}</h3>
+        <p>⭐ ${movie.vote_average.toFixed(1)}</p>
+        <button class="watchlist-btn" onclick="addToWatchlist(${movie.id})">
+          Add to Watchlist
+        </button>
+      </div>
+    `;
+  });
+
+  resultSection.scrollIntoView({ behavior: "smooth" });
+}
+function scrollSearch(direction) {
+  const container = document.getElementById("search-row");
+  if (container) {
+    container.scrollBy({ left: direction * 300, behavior: "smooth" });
+  }
+}
+// 3. Event listeners for the search box
+document.getElementById("search-btn").addEventListener("click", () => {
+  const query = document.getElementById("search-input").value;
+  fetchSearchMovies(query);
+});
+
+document.getElementById("search-input").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const query = document.getElementById("search-input").value;
+    fetchSearchMovies(query);
+  }
+});
 async function setMood(mood, emoji) {
   console.log("set mood")
   const genreId = moodGenres[mood];
@@ -65,7 +131,7 @@ function displayMoodMovies(movies, mood, emoji) {
 
   label.innerHTML = `${emoji} Movies for ${mood}`;
 
-  movies.slice(0, 10).forEach(movie => {
+  movies.forEach(movie => {
     const poster = movie.poster_path
     ? IMAGE_URL + movie.poster_path
     : "https://via.placeholder.com/440x660?text=No+Image";

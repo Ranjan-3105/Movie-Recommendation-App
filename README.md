@@ -1,48 +1,49 @@
 Update the steps you take here before each commit: 
 
-1) Home Page
-A.Navbar
-Logo / Website name
-Home
-Movies
-Genre
-Trending
-search bar
-Login
+# 🎬 Movie Recommendation Website
 
-B.Banner Section
-Big movie background image with:
-Movie title
-Description
-Rating
-Watch Now button
+A responsive movie recommendation website that helps users discover movies based on their mood. Users can search for movies, browse recommendations, and save their favorite movies to a watchlist.
 
-2)Mood Selection
-Buttons/cards:
-😊 Happy
-😢 Sad
-🤩excited
-😱 Thriller
-❤️Romantic
-🤔Thoughtful
+## 🚀 Features
 
-Recommended Movies Section
-After mood click, show movie cards
+- 🔍 Search movies by title
+- 😊 Mood-based movie recommendations
+- ❤️ Add and remove movies from Watchlist
+- 🎞️ Hero slider with featured movies
+
+## 🛠️ Technologies Used
+
+- HTML5
+- CSS
+- JavaScript
+- TMDb API
+
+## 📂 Project Structure
+
+```
+Movie-Recommendation-App/
+|-index.html
+|-script.js
+|-style.css
+|-watchlist.css
+|-watchlist.html
+|-watchlist.js
+|-README.md
+
+```
+## 🎯 How to Use
+
+1. Search for a movie.
+2. Select your mood to get recommendations.
+3. Browse the suggested movies.
+4. Add your favorite movies to the watchlist
+
+## 🔮 Future Enhancements
+
+- User authentication
+- Movie trailers
 
 
-3) Footer
 
-Footer contains:
-About/Short description
-Links
-Home
-Movies
-Trending
-By Mood
-Contact
-Social Icons
-instagram
-twitter
-Youtube
 
-Copyright
+This project is developed for learning and educational purposes.
