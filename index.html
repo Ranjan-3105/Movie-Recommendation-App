@@ -18,15 +18,15 @@
     <a>Movies</a>
     <a>Genres</a>
     <a>Trending</a>
-    <a href="watchlist.html" target="_blank" rel="noopener  noreferror" >watchlist</a>
+    <a href="watchlist.html" rel="noopener  noreferror" >watchlist</a>
     <div class="search-container">
       <input id="search-input" type="text" placeholder="search movies...">
       <button id="search-btn">Search</button>
     </div>
-    <button id="log-in">
+    <!-- <button id="log-in">
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm146.5-204.5Q340-521 340-580t40.5-99.5Q421-720 480-720t99.5 40.5Q620-639 620-580t-40.5 99.5Q539-440 480-440t-99.5-40.5ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm100-95.5q47-15.5 86-44.5-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160q53 0 100-15.5ZM523-537q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm-43-43Zm0 360Z"/></svg>
       <h4>Login</h4>
-    </button>
+    </button> -->
   </div>
   <div id="main">  
     <div class="slides">
@@ -41,7 +41,7 @@
             <span>2h 53m</span>
           </div>
           <p class="movie-desc">Bhooth Bangla is a 2026 Indian Hindi-language comedy horror film directed by Priyadarshan and produced by Akshay Kumar, Ekta Kapoor and Shobha Kapoor under Balaji Motion Pictures and Cape of Good Films. The film stars Akshay Kumar, Paresh Rawal, Jisshu Sengupta, Rajpal Yadav, Tabu, Wamiqa Gabbi, and Asrani.</p>
-          <button>Watch Now</button>
+          <!-- <button>Watch Now</button> -->
         </div>
       </div>
       <div class="slide">
@@ -55,7 +55,7 @@
             <span>2h 46m</span>
           </div>
           <p class="movie-desc">Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the universe, he must prevent a terrible future only he can foresee.</p>
-          <button>Watch Now</button>
+          <!-- <button>Watch Now</button> -->
         </div>
       </div>
     
@@ -71,7 +71,7 @@
           
           </div>
           <p class="movie-desc">In the 1980s Indiana, a group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries.</p>
-          <button>Watch Now</button>
+          <!-- <button>Watch Now</button> -->
         </div>
 
       </div>
@@ -86,7 +86,7 @@
           
           </div>
           <p class="movie-desc">Hamza Ali Mazari pursues Major Iqbal to dismantle Pakistan's crime system. As his mission unfolds, his past reveals a transformative history that shaped his relentless drive for justice.</p>
-          <button>Watch Now</button>
+          <!-- <button>Watch Now</button> -->
         </div>
 
       </div>
@@ -112,10 +112,10 @@
 </div>
 
 <section class="genre-section">
-  <h2>🎬 Browse by Genre</h2>
+  <h2>🎬Browse by Genre</h2>
 
   <div class="genre">
-    <h3>👻 Horror</h3>
+    <h3>Horror</h3>
     <div class="slider-container">
       <button class="arrow left" onclick="scrollRow('horror',-300)">❮</button>
 
@@ -126,7 +126,7 @@
   </div>
 
   <div class="genre">
-    <h3>🚀 Sci-Fi</h3>
+    <h3>Sci-Fi</h3>
     <div class="slider-container">
       <button class="arrow left" onclick="scrollRow('scifi',-300)">❮</button>
 
@@ -137,7 +137,7 @@
   </div>
 
   <div class="genre">
-    <h3>🕵️ Thriller</h3>
+    <h3>Thriller</h3>
     <div class="slider-container">
       <button class="arrow left" onclick="scrollRow('thriller',-300)">❮</button>
 
@@ -148,7 +148,7 @@
   </div>
 
   <div class="genre">
-    <h3>❤️ Romance</h3>
+    <h3>Romance</h3>
     <div class="slider-container">
       <button class="arrow left" onclick="scrollRow('romance',-300)">❮</button>
 
@@ -159,7 +159,7 @@
   </div>
 
   <div class="genre">
-    <h3>😂 Comedy</h3>
+    <h3>Comedy</h3>
     <div class="slider-container">
       <button class="arrow left" onclick="scrollRow('comedy',-300)">❮</button>
 
@@ -175,33 +175,33 @@
       <h2 class="section-title">What's Your <span>Mood?</span></h2>
       <p>Get curated recommendations based on how you feel right now.</p>
       <div class="mood-grid">
-        <div class="mood-card" onclick="setMood('happy','😂')" data-mood="happy">
-          <div class="mood-icon">😂</div>
+        <div class="mood-card" onclick="setMood('happy','Happy')" data-mood="happy">
+          <div class="mood-icon"></div>
           <div class="mood-label">happy</div>
           <div class="mood-sub">Feel-good films</div>
         </div>
-        <div class="mood-card" onclick="setMood('sad','😢')" data-mood="sad">
-          <div class="mood-icon">😢</div>
+        <div class="mood-card" onclick="setMood('sad','sad')" data-mood="sad">
+          <div class="mood-icon"></div>
           <div class="mood-label">sad</div>
           <div class="mood-sub">Emotional dramas</div>
         </div>
-        <div class="mood-card" onclick="setMood('excited','🤩')" data-mood="excited">
-          <div class="mood-icon">🤩</div>
+        <div class="mood-card" onclick="setMood('excited','Excited')" data-mood="excited">
+          <div class="mood-icon"></div>
           <div class="mood-label">excited</div>
           <div class="mood-sub">High-energy action</div>
         </div>
-        <div class="mood-card" onclick="setMood('thriller','😱')" data-mood="thriller">
-          <div class="mood-icon">😱</div>
+        <div class="mood-card" onclick="setMood('thriller','Thriller')" data-mood="thriller">
+          <div class="mood-icon"></div>
           <div class="mood-label">thriller</div>
           <div class="mood-sub">Edge-of-seat suspense</div>
         </div>
-        <div class="mood-card" onclick="setMood('romantic','❤️')" data-mood="romantic">
-          <div class="mood-icon">❤️</div>
+        <div class="mood-card" onclick="setMood('romantic','Romantic')" data-mood="romantic">
+          <div class="mood-icon"></div>
           <div class="mood-label">romantic</div>
           <div class="mood-sub">Love stories</div>
         </div>
-        <div class="mood-card" onclick="setMood('thoughtful','🤔')" data-mood="thoughtful">
-          <div class="mood-icon">🤔</div>
+        <div class="mood-card" onclick="setMood('thoughtful','Thoughtful')" data-mood="thoughtful">
+          <div class="mood-icon"></div>
           <div class="mood-label">thoughtful</div>
           <div class="mood-sub">Mind-bending films</div>
         </div>
@@ -257,7 +257,7 @@
   </div>
   <div class="footer-bottom">
     <p>© 2026 CineBar. All rights reserved.</p>
-    <p>Made with ❤️ for movie lovers</p>
+    <p>Made with  for movie lovers</p>
   </div>
 </footer>
 <script src="script.js"></script>   

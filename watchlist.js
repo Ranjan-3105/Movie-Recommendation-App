@@ -16,7 +16,7 @@
       container.innerHTML = "";
 
       if (watchlist.length === 0) {
-        emptyText.innerText = "Your watchlist is empty 😴";
+        emptyText.innerText = "Your watchlist is empty";
         return;
       } else {
         emptyText.innerText = "";
