@@ -40,7 +40,7 @@ async function fetchSearchMovies(query) {
   const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=1&include_adult=false`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
     const data = await res.json();
     displaySearchMovies(data.results, query);
   } catch (err) {
@@ -113,9 +113,8 @@ const genres = {
 
 async function fetchGenreMovies(genreId, containerId) {
   try {
-    const res = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
-    );
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
 
     const data = await res.json();
     displayMovies(data.results, containerId);
@@ -181,7 +180,7 @@ async function setMood(mood, emoji) {
   const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
      if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
