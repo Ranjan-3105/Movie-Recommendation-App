@@ -1,28 +1,9 @@
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dot");
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
 
-let index = 0;
-
-function showSlide(n) {
-  slides.forEach(slide => slide.classList.remove("active"));
-  dots.forEach(dot => dot.classList.remove("active"));
-
-  slides[n].classList.add("active");
-  dots[n].classList.add("active");
-}
-
-function nextSlide() {
-  index++;
-  if (index >= slides.length) index = 0;
-  showSlide(index);
-}
-
-setInterval(nextSlide, 3000); 
-
-
-const API_KEY = "884c521ea68a850c28884fc00746252c";
-const BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+const API_KEY = '884c521ea68a850c28884fc00746252c';
+const BASE_URL = 'https://api.themoviedb.org/3';
+const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
 const moodGenres = {
   happy: 35,
@@ -33,76 +14,6 @@ const moodGenres = {
   thoughtful: 878
 };
 
-
-async function fetchSearchMovies(query) {
-  if (!query.trim()) return;
-
-  const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=1&include_adult=false`;
-
-  try {
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
-    const data = await res.json();
-    displaySearchMovies(data.results, query);
-  } catch (err) {
-    console.error("Search error:", err);
-  }
-}
-function displaySearchMovies(movies, query) {
-  currentMovies = movies;
-  const resultSection = document.getElementById("search-results");
-  const searchRow = document.getElementById("search-row");
-  const label = document.getElementById("search-label-tag");
-
-  resultSection.style.display = "block";
-  searchRow.innerHTML = "";
-
-  label.innerHTML = `🔍 Results for "${query}"`;
-  
-  if(!movies || movies.length === 0) {
-    searchRow.innerHTML = `<p style="color:#aaa; width:100%; text-align:center;">No results found for "${query}". Please try a different search.</p>`;
-    resultSection.scrollIntoView({ behavior: "smooth" });
-    return;
-  }
-
-  currentMovies.forEach(movie => {
-    const poster = movie.poster_path
-      ? IMAGE_URL + movie.poster_path
-      : "https://via.placeholder.com/440x660?text=No+Image";
-
-    searchRow.innerHTML += `
-      <div class="movie-card">
-        <img src="${poster}" alt="${movie.title}">
-        <h3>${movie.title}</h3>
-        <p>⭐ ${movie.vote_average.toFixed(1)}</p>
-        <button class="watchlist-btn" onclick="addToWatchlist(${movie.id})">
-          Add to Watchlist
-        </button>
-      </div>
-    `;
-  });
-
-  resultSection.scrollIntoView({ behavior: "smooth" });
-}
-function scrollSearch(direction) {
-  const container = document.getElementById("search-row");
-  if (container) {
-    container.scrollBy({ left: direction * 300, behavior: "smooth" });
-  }
-}
-
-document.getElementById("search-btn").addEventListener("click", () => {
-  const query = document.getElementById("search-input").value;
-  fetchSearchMovies(query);
-});
-
-document.getElementById("search-input").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    const query = document.getElementById("search-input").value;
-    fetchSearchMovies(query);
-  }
-});
-
-
 const genres = {
   horror: 27,
   scifi: 878,
@@ -111,165 +22,229 @@ const genres = {
   comedy: 35
 };
 
-async function fetchGenreMovies(genreId, containerId) {
-  try {
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+let slideIndex = 0;
+const cache = {};
 
-    const data = await res.json();
-    displayMovies(data.results, containerId);
+function showSlide(index) {
+  if (!slides || slides.length === 0) return;
+  const i = (index >= 0 && index < slides.length) ? index : 0;
+  slides.forEach(slide => slide.classList.remove('active'));
+  if (dots && dots.length) dots.forEach(dot => dot.classList.remove('active'));
+  slides[i].classList.add('active');
+  if (dots && dots.length && dots[i]) dots[i].classList.add('active');
+}
 
-  } catch (error) {
-    console.error(error);
+function nextSlide() {
+  slideIndex = (slideIndex + 1) % slides.length;
+  showSlide(slideIndex);
+}
+
+function scrollTrack(trackId, amount) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  track.scrollBy({ left: amount, behavior: 'smooth' });
+}
+
+function scrollRow(trackId, amount) {
+  scrollTrack(trackId, amount);
+}
+
+async function fetchJson(url) {
+  const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+  if (!response.ok) throw new Error('Network response was not ok');
+  return response.json();
+}
+
+function cacheMovies(movies) {
+  if (!Array.isArray(movies)) return;
+  movies.forEach(movie => {
+    if (movie && movie.id) cache[movie.id] = movie;
+  });
+}
+
+async function fetchSearchMovies(query) {
+  const trimmed = query.trim();
+  if (!trimmed) return;
+
+  const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(trimmed)}&language=en-US&page=1&include_adult=false`;
+  const data = await fetchJson(url);
+  cacheMovies(data.results);
+  displaySearchMovies(data.results, trimmed);
+}
+
+function displaySearchMovies(movies, query) {
+  const section = document.getElementById('search-results');
+  const row = document.getElementById('search-row');
+  const label = document.getElementById('search-label-tag');
+
+  label.textContent = `Search results for "${query}"`;
+  row.innerHTML = '';
+
+  if (!movies || !movies.length) {
+    row.innerHTML = '<div class="empty-message">No results found. Try a different title.</div>';
+    section.classList.remove('section--hidden');
+    section.scrollIntoView({ behavior: 'smooth' });
+    return;
   }
+
+  movies.forEach(movie => {
+    const poster = movie.poster_path ? `${IMAGE_URL}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    card.innerHTML = `
+      <img src="${poster}" alt="${movie.title}" />
+      <div class="movie-card-content">
+        <h3>${movie.title}</h3>
+        <p>⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</p>
+      </div>
+      <button class="watchlist-btn">Add to Watchlist</button>
+    `;
+    card.querySelector('.watchlist-btn').addEventListener('click', () => addToWatchlist(movie.id));
+    row.appendChild(card);
+  });
+
+  section.classList.remove('section--hidden');
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+
+async function fetchGenreMovies(genreId, containerId) {
+  const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`;
+  const data = await fetchJson(url);
+  cacheMovies(data.results);
+  displayMovies(data.results, containerId);
 }
 
 function displayMovies(movies, containerId) {
   const container = document.getElementById(containerId);
-  currentMovies=movies;
-  const thisGenresMovies = [...movies];
-  
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!movies || !movies.length) {
+    container.innerHTML = '<div class="empty-message">No movies available right now.</div>';
+    return;
+  }
+
   movies.forEach(movie => {
-    const card = document.createElement("div");
-    
-
-    card.innerHTML = `<div class="movie-card">
-      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-      <h4>${movie.title}</h4>
-      <p>⭐ ${movie.vote_average.toFixed(1)}</p>
-      <button class = "watchlist-btn">
-        Add to Watchlist
-      </button>
-     </div> 
+    const poster = movie.poster_path ? `${IMAGE_URL}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    card.innerHTML = `
+      <img src="${poster}" alt="${movie.title}" />
+      <div class="movie-card-content">
+        <h4>${movie.title}</h4>
+        <p>⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</p>
+      </div>
+      <button class="watchlist-btn">Add to Watchlist</button>
     `;
-    card.querySelector('.watchlist-btn').addEventListener('click', () => {
-    
-      currentMovies = thisGenresMovies;
-      addToWatchlist(movie.id);
-    })
-
+    card.querySelector('.watchlist-btn').addEventListener('click', () => addToWatchlist(movie.id));
     container.appendChild(card);
   });
 }
 
-function scrollRow(containerId, amount) {
-  const row = document.getElementById(containerId);
-  
-  
-  if (!row) return;
-
-  row.scrollBy({
-    left: amount,
-    behavior: "smooth"
-  });
+async function fetchTrendingMovies() {
+  const url = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
+  const data = await fetchJson(url);
+  cacheMovies(data.results);
+  displayMovies(data.results, 'trending-row');
 }
-
-fetchGenreMovies(genres.horror, "horror");
-fetchGenreMovies(genres.scifi, "scifi");
-fetchGenreMovies(genres.thriller, "thriller");
-fetchGenreMovies(genres.romance, "romance");
-fetchGenreMovies(genres.comedy, "comedy");
-
-  
-
 
 async function setMood(mood, emoji) {
-  console.log("set mood")
   const genreId = moodGenres[mood];
-
-  const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
-
-  try {
-    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
-     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    
-    const data = await response.json();
-    console.log(data)
-
-    displayMoodMovies(data.results, mood, emoji);
-  } catch (error) {
-    console.log("Error:", error);
-  }
+  const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`;
+  const data = await fetchJson(url);
+  cacheMovies(data.results);
+  displayMoodMovies(data.results, mood, emoji);
 }
-
-let currentMovies = [];
 
 function displayMoodMovies(movies, mood, emoji) {
-  currentMovies = movies;
-  const resultSection = document.getElementById("mood-results");
-  const moodRow = document.getElementById("mood-row");
-  const label = document.getElementById("mood-label-tag");
+  const section = document.getElementById('mood-results');
+  const row = document.getElementById('mood-row');
+  const label = document.getElementById('mood-label-tag');
 
-  resultSection.style.display = "block";
-  moodRow.innerHTML = "";
+  label.textContent = `${emoji} picks for ${mood}`;
+  row.innerHTML = '';
 
-  label.innerHTML = `${emoji} Movies for ${mood}`;
+  if (!movies || !movies.length) {
+    row.innerHTML = '<div class="empty-message">No recommendations available right now.</div>';
+  } else {
+    movies.forEach(movie => {
+      const poster = movie.poster_path ? `${IMAGE_URL}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
+      const card = document.createElement('div');
+      card.className = 'movie-card';
+      card.innerHTML = `
+        <img src="${poster}" alt="${movie.title}" />
+        <div class="movie-card-content">
+          <h3>${movie.title}</h3>
+          <p>⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</p>
+        </div>
+        <button class="watchlist-btn">Add to Watchlist</button>
+      `;
+      card.querySelector('.watchlist-btn').addEventListener('click', () => addToWatchlist(movie.id));
+      row.appendChild(card);
+    });
+  }
 
-  movies.forEach(movie => {
-    const poster = movie.poster_path
-    ? IMAGE_URL + movie.poster_path
-    : "https://via.placeholder.com/440x660?text=No+Image";
-
-    moodRow.innerHTML += `
-      <div class="movie-card">
-        <img src="${poster}" alt="${movie.title}">
-        <h3>${movie.title}</h3>
-        <p>⭐ ${movie.vote_average.toFixed(1)}</p>
-        <button class = "watchlist-btn" onclick="addToWatchlist(${movie.id})">
-        Add to Watchlist
-      </button>
-      </div>
-    `;
-  });
-  resultSection.scrollIntoView({behavior:"smooth"});
+  section.classList.remove('section--hidden');
+  section.scrollIntoView({ behavior: 'smooth' });
 }
 
-
+function scrollSearch(direction) {
+  const container = document.getElementById('search-row');
+  if (!container) return;
+  container.scrollBy({ left: direction * 320, behavior: 'smooth' });
+}
 
 function scrollMood(direction) {
-  const track = document.getElementById("mood-row");
-  track.scrollBy({ left: direction * 500, behavior: "smooth" });
+  const track = document.getElementById('mood-row');
+  if (!track) return;
+  track.scrollBy({ left: direction * 320, behavior: 'smooth' });
 }
 
-
 function addToWatchlist(movieId) {
-  let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+  const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+  const movie = cache[movieId];
 
-  let selectedMovie = null;
-
-  currentMovies.forEach(movie => {
-    if(movie.id === movieId){
-      selectedMovie = movie;
-    }
-  });
-
-  if(!selectedMovie) return;
-
-  const exists = watchlist.some(
-    movie => movie.id === movieId
-  );
-
-  if(exists){
-    alert("Already in watchlist");
+  if (!movie) {
+    alert('Unable to add movie. Please try again.');
     return;
   }
 
-  const watchlistItem = {
-    id: selectedMovie.id,
-    title: selectedMovie.title,
-    poster: selectedMovie.poster_path
-      ? IMAGE_URL + selectedMovie.poster_path
-      : "https://via.placeholder.com/440x660?text=No+Image",
-    vote_average: selectedMovie.vote_average
-  };
+  if (watchlist.some(item => item.id === movieId)) {
+    alert('Already in watchlist.');
+    return;
+  }
 
-  watchlist.push(watchlistItem);
+  watchlist.push({
+    id: movie.id,
+    title: movie.title,
+    poster: movie.poster_path ? `${IMAGE_URL}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image'
+  });
 
-  localStorage.setItem(
-    "watchlist",
-    JSON.stringify(watchlist)
-  );
-
-  alert("Added to Watchlist");
+  localStorage.setItem('watchlist', JSON.stringify(watchlist));
+  alert(`${movie.title} added to watchlist.`);
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+  const searchBtn = document.getElementById('search-btn');
+  const searchInput = document.getElementById('search-input');
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', () => {
+      fetchSearchMovies(searchInput.value);
+    });
+
+    searchInput.addEventListener('keypress', event => {
+      if (event.key === 'Enter') {
+        fetchSearchMovies(event.target.value);
+      }
+    });
+  }
+
+  fetchTrendingMovies();
+  fetchGenreMovies(genres.horror, 'horror');
+  fetchGenreMovies(genres.scifi, 'scifi');
+  fetchGenreMovies(genres.thriller, 'thriller');
+  fetchGenreMovies(genres.romance, 'romance');
+  fetchGenreMovies(genres.comedy, 'comedy');
+  showSlide(slideIndex);
+  setInterval(nextSlide, 4000);
+});

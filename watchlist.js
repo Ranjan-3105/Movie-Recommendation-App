@@ -1,60 +1,54 @@
- const container = document.getElementById("container");
-    const emptyText = document.getElementById("empty");
-    const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+const container = document.getElementById('container');
+const emptyText = document.getElementById('empty');
+const IMAGE_URL = 'https://image.tmdb.org/t/p/w200';
 
-    function getWatchlist() {
-      return JSON.parse(localStorage.getItem("watchlist")) || [];
-    }
+function getWatchlist() {
+  return JSON.parse(localStorage.getItem('watchlist')) || [];
+}
 
-    function saveWatchlist(list) {
-      localStorage.setItem("watchlist", JSON.stringify(list));
-    }
+function saveWatchlist(list) {
+  localStorage.setItem('watchlist', JSON.stringify(list));
+}
 
-    function renderWatchlist() {
-      let watchlist = getWatchlist();
+function renderWatchlist() {
+  const watchlist = getWatchlist();
+  container.innerHTML = '';
+  if (watchlist.length === 0) {
+    emptyText.innerText = 'Your watchlist is empty';
+    return;
+  }
+  emptyText.innerText = '';
 
-      container.innerHTML = "";
+  watchlist.forEach(movie => {
+    const item = document.createElement('div');
+    item.className = 'watchlist-item';
 
-      if (watchlist.length === 0) {
-        emptyText.innerText = "Your watchlist is empty";
-        return;
-      } else {
-        emptyText.innerText = "";
-      }
+    const poster = movie.poster || (movie.poster_path ? IMAGE_URL + movie.poster_path : 'https://via.placeholder.com/120x180?text=No+Image');
 
-      watchlist.forEach((movie) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        const poster = movie.poster || (movie.poster_path
-          ? IMAGE_URL + movie.poster_path
-          : "https://via.placeholder.com/440x660?text=No+Image");
-
-        card.innerHTML = `
-      <img src="${poster}" alt="${movie.title}">
-      <div class="card-body">
+    item.innerHTML = `
+      <img src="${poster}" alt="${movie.title}" />
+      <div class="info">
         <div class="title">${movie.title}</div>
-        <button onclick="removeMovie(${movie.id})">
-          Remove
-        </button>
       </div>
+      <button class="remove-btn">Remove</button>
     `;
 
-        container.appendChild(card);
-      });
-    }
+    const btn = item.querySelector('.remove-btn');
+    btn.addEventListener('click', () => removeMovie(movie.id));
 
-    function removeMovie(movieId) {
-      let watchlist = getWatchlist();
-      watchlist = watchlist.filter(movie => movie.id !== movieId);
-      saveWatchlist(watchlist);
-      renderWatchlist();
-    }
+    container.appendChild(item);
+  });
+}
 
-    renderWatchlist();
+function removeMovie(movieId) {
+  let watchlist = getWatchlist();
+  watchlist = watchlist.filter(m => m.id !== movieId);
+  saveWatchlist(watchlist);
+  renderWatchlist();
+}
 
-    window.addEventListener("storage", event => {
-      if (event.key === "watchlist") {
-        renderWatchlist();
-      }
-    });
+renderWatchlist();
+
+window.addEventListener('storage', event => {
+  if (event.key === 'watchlist') renderWatchlist();
+});
