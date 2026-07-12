@@ -50,7 +50,7 @@ function scrollRow(trackId, amount) {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+  const response = await fetch(url);
   if (!response.ok) throw new Error('Network response was not ok');
   return response.json();
 }
@@ -107,39 +107,66 @@ function displaySearchMovies(movies, query) {
   section.scrollIntoView({ behavior: 'smooth' });
 }
 
+
 async function fetchGenreMovies(genreId, containerId) {
-  const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`;
-  const data = await fetchJson(url);
-  cacheMovies(data.results);
-  displayMovies(data.results, containerId);
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
+    );
+
+    const data = await res.json();
+    displayMovies(data.results, containerId);
+
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function displayMovies(movies, containerId) {
   const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = '';
-
-  if (!movies || !movies.length) {
-    container.innerHTML = '<div class="empty-message">No movies available right now.</div>';
-    return;
-  }
-
+  currentMovies=movies;
+  const thisGenresMovies = [...movies];
+  
   movies.forEach(movie => {
-    const poster = movie.poster_path ? `${IMAGE_URL}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
-    const card = document.createElement('div');
-    card.className = 'movie-card';
-    card.innerHTML = `
-      <img src="${poster}" alt="${movie.title}" />
-      <div class="movie-card-content">
-        <h4>${movie.title}</h4>
-        <p>⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</p>
-      </div>
-      <button class="watchlist-btn">Add to Watchlist</button>
+    const card = document.createElement("div");
+    
+
+    card.innerHTML = `<div class="movie-card">
+      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+      <h4>${movie.title}</h4>
+      <p>⭐ ${movie.vote_average.toFixed(1)}</p>
+      <button class = "watchlist-btn">
+        Add to Watchlist
+      </button>
+     </div> 
     `;
-    card.querySelector('.watchlist-btn').addEventListener('click', () => addToWatchlist(movie.id));
+    card.querySelector('.watchlist-btn').addEventListener('click', () => {
+    
+      currentMovies = thisGenresMovies;
+      addToWatchlist(movie.id);
+    })
+
     container.appendChild(card);
   });
 }
+
+function scrollRow(containerId, amount) {
+  const row = document.getElementById(containerId);
+  
+  
+  if (!row) return;
+
+  row.scrollBy({
+    left: amount,
+    behavior: "smooth"
+  });
+}
+
+fetchGenreMovies(genres.horror, "horror");
+fetchGenreMovies(genres.scifi, "scifi");
+fetchGenreMovies(genres.thriller, "thriller");
+fetchGenreMovies(genres.romance, "romance");
+fetchGenreMovies(genres.comedy, "comedy");
 
 async function fetchTrendingMovies() {
   const url = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
@@ -147,7 +174,7 @@ async function fetchTrendingMovies() {
   cacheMovies(data.results);
   displayMovies(data.results, 'trending-row');
 }
-
+fetchTrendingMovies();
 async function setMood(mood, emoji) {
   const genreId = moodGenres[mood];
   const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US&page=1`;
@@ -239,12 +266,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  fetchTrendingMovies();
-  fetchGenreMovies(genres.horror, 'horror');
-  fetchGenreMovies(genres.scifi, 'scifi');
-  fetchGenreMovies(genres.thriller, 'thriller');
-  fetchGenreMovies(genres.romance, 'romance');
-  fetchGenreMovies(genres.comedy, 'comedy');
+
+  
   showSlide(slideIndex);
   setInterval(nextSlide, 4000);
 });
